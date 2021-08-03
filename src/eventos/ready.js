@@ -4,6 +4,8 @@ this.client = client
 }
 async run(){
   
+this.client.loadEmotes(["123456789012345678"]) //Array of Guild IDs, assigns guilds emotes in client instance, use this as: client.emotes.info (LowerCase emoji name) 
+  
 this.checkInteractionUpdates()
 
 checkInteractionUpdates(){

@@ -10,7 +10,7 @@ if(interaction.type === "APPLICATION_COMMAND"){
     if (!interactionCommand) return;
     
     const options = {}
-    this.parseOptions(interaction, options)
+    this.getOptions(interaction.options.data, options)
 
 try{
    await interactionCmd.run(interaction, options);
@@ -19,15 +19,12 @@ try{
    ${e}`)
 }
 
-  parseOptions(interaction, route) {
-    getOptions(interaction.options.data, route)
-
-    function getOptions(options, route) {
+ getOptions(options, route) {
       for (const option of options) {
         const { name, ...rest } = option
         if (rest.type.startsWith("SUB_COMMAND")) {
           route[name] = {}
-          getOptions(rest.options, route[name])
+          this.getOptions(rest.options, route[name])
         } else {
           if (!rest.role && !rest.channel && !rest.user) route[name] = rest.value
           else route[name] = rest
